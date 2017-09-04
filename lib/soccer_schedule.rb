@@ -1,5 +1,3 @@
-require "soccer_schedule/version"
-
-module SoccerSchedule
-  # Your code goes here...
-end
+require_relative "./soccer_schedule/version"
+require_relative './soccer_schedule/cli'
+require_relative './soccer_schedule/teams'
