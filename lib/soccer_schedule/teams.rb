@@ -4,27 +4,28 @@ class SoccerSchedule::Teams
 
 def self.all
   teams=[]
-  teams_url=[]
-  # div banner-club-container
-  # attr("href")
-  # banner-logo title= team-name
   doc = Nokogiri::HTML(open("https://www.mlssoccer.com/"))
-
-  doc.css("a.banner-club-logo").map do |each|
-    teams<<each.attr("title")
-    teams_url<< each.attr("href")
+  doc.css("a.banner-club-logo").map do |team|
+    name = team.attr("title")
+    url = team.attr("href")
+    teams<< {:name => name,:url => url}
   end
-  # team_name = doc.search("a.banner-club-logo").first.attr("title")
-  # team_url = doc.search("a.banner-club-logo").first.attr("href")
-  # puts "1. Redbulls"
-  # puts "2. NYCFC"
-  # puts "3. DC United"
-  puts teams
-
-  # teams<<
+  teams
 end
 
+def self.team_schedule
+  @teams= self.all
+  teams_schedule=[]
 
+
+  doc = Nokogiri::HTML(open("https://www.mlssoccer.com/"))
+  doc.css("a.banner-club-logo").map do |team|
+    name = team.attr("title")
+    url = team.attr("href")
+    teams<< {:name => name,:url => url}
+  end
+  teams
+end
 
 
 end
