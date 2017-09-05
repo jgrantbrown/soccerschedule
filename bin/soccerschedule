@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'Nokogiri'
+
 require './lib/soccer_schedule'
 
 SoccerSchedule::CLI.new.call
