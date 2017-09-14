@@ -5,3 +5,12 @@ after chooosing a team from list have option to see next game or rosters
 
 
 BUild out objects for roster and next_game
+
+
+Logic notes for code:
+# As a first approximation,
+#
+# a ||= b
+# is equivalent to
+#
+# a || a = b

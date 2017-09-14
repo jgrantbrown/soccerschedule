@@ -1,10 +1,35 @@
 class SoccerSchedule::Teams
- attr_accessor :name, :url, :schedule_url, :team_schedule, :team_roster
+ attr_accessor :name, :url, :schedule_url, :next_game
 
 
-  def scrapeteam
+# REFACTOR FOR BETTER PRACTICE
+ # @@all=[]
+ #
+ #  def initialize(name, url)
+ #    @name= name
+ #    @url = url
+ #    @schedule_url = url
+ #    @next_game = next_game
+ #    @@all<<self
+ #  end
+ #
+ #  def self.all
+ #    @@all
+ #  end
+ #
+ # def self.find(id)
+ #   self.all[id-1]
+ # end
 
-  end
+#  def self.new_from_home(team)
+#     self.new(
+#       name,
+#       url,
+#       schedule_url
+#       next_game)
+# end
+
+
 
   def self.all
     teams=[]
