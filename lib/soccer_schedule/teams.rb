@@ -1,5 +1,5 @@
 class SoccerSchedule::Teams
- attr_accessor :name, :url, :schedule_url, :team_schedule
+ attr_accessor :name, :url, :schedule_url, :team_schedule, :team_roster
 
 
   def scrapeteam
