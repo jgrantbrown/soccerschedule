@@ -15,7 +15,7 @@ class SoccerSchedule::CLI
   def list_teams
 
     SoccerSchedule::Teams.scrape_teams
-
+    
     @teams = SoccerSchedule::Teams.all
     @teams.each.with_index(1)  do |teams,i|
        puts "#{i}. #{teams.name}"
@@ -30,7 +30,7 @@ class SoccerSchedule::CLI
         puts "Please select a team by number, 'list' for teams, or 'exit'"
         input = gets.strip.downcase
         if (1...@teams.length).include?(input.to_i)
-            
+
             puts "#{@teams[input.to_i - 1].name}  info:"
             # puts "Enter 'Next Game' , 'Roster', 'List Teams' or 'Exit'"
             # input= get.strip.downcase

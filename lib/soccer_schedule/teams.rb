@@ -8,7 +8,7 @@ class SoccerSchedule::Teams
   def initialize(name=nil, url=nil, schedule_url=nil)
     @name= name
     @url = url
-    @schedule_url = url
+    @schedule_url = schedule_url
     @next_game = next_game
     @@all<<self
   end
@@ -44,6 +44,7 @@ class SoccerSchedule::Teams
 
      doc = Nokogiri::HTML(open("https://www.mlssoccer.com/"))
      doc.css("a.banner-club-logo").map do |team|
+
        name = team.attr("title")
        url=""
 
@@ -61,7 +62,7 @@ class SoccerSchedule::Teams
        uri.to_s
        #option #2
        # url.gsub('/http/','https')
-       SoccerSchedule::Teams.new( name,url,  "#{uri.to_s}schedule")
+       SoccerSchedule::Teams.new( name,url, "#{uri.to_s}schedule")
      end
 
 
