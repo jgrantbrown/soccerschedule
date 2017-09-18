@@ -28,25 +28,27 @@ class SoccerSchedule::CLI
         puts "Please select a team by number, 'list' for teams, or 'exit'"
         team_input = gets.strip.downcase
         if (1...@teams.length).include?(team_input.to_i)
-            puts "More info about the #{@teams[team_input.to_i].name}"
-            SoccerSchedule::Teams.team_schedule(team_input)
-            # puts "#{@teams[team_input.to_i - 1].name}  info:"
-            # puts " 1. Next Game "
-            # puts " 2. Roster"
-            # puts " 3. List Teams "
-            # puts " 4. Exit"
-            # detail_input= gets.strip.downcase
-            #   if detail_input.to_i == 1
-            #     SoccerSchedule::Teams.team_schedule(team_input)
-            #   elsif detail_input.to_i == 2
-            #     puts "Here is the roster: COMING SOON!"
-            #   elsif detail_input.to_i == 3
-            #
-            #   elsif detail_input.to_i == 3
-            #
-            #   end
+            puts "More info about the #{@teams[team_input.to_i-1].name}"
+            puts " 1. Next Game "
+            puts " 2. Roster"
+            puts " 3. List Teams "
+            puts " 4. Exit"
+            detail_input= gets.strip.downcase
+                case
+              when detail_input.to_i == 1
+                SoccerSchedule::Teams.team_schedule(team_input)
+              when detail_input.to_i == 2
+                puts "Here is the roster: COMING SOON!"
+              when detail_input.to_i == 3
+                list_teams
+              when detail_input.to_i == 4
+                goodbye
+                # exit out of program?
+              end
         elsif team_input == "list"
            list_teams
+        elsif team_input == "exit"
+            puts "See you soon!"
         else
           puts "Not valid entry. Type list or exit"
         end
