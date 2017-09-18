@@ -1,14 +1,16 @@
 class SoccerSchedule::Teams
- attr_accessor :name, :url, :schedule_url, :next_game
+ attr_accessor :name, :url, :schedule_url, :next_game, :roster, :roster_url
 
 # REFACTOR FOR BETTER PRACTICE
  @@all=[]
 
-  def initialize(name=nil, url=nil, schedule_url=nil)
+  def initialize(name=nil, url=nil, schedule_url=nil, roster_url=nil)
     @name= name
     @url = url
     @schedule_url = schedule_url
     @next_game = next_game
+    @roster_url = roster_url
+    @roster= roster
     @@all<<self
   end
 
@@ -61,7 +63,7 @@ class SoccerSchedule::Teams
        uri.to_s
        #option #2
        # url.gsub('/http/','https')
-       SoccerSchedule::Teams.new( name,url, "#{uri.to_s}schedule")
+       SoccerSchedule::Teams.new( name,url, "#{uri.to_s}schedule","#{uri.to_s}players")
      end
 
 
