@@ -4,8 +4,8 @@ class SoccerSchedule::Rosters
   # REFACTOR FOR BETTER PRACTICE
   @@all=[]
 
-   def initialize(team=nil, players=nil)
-     @team = team
+   def initialize(players=nil)
+
      @players = []
      @@all<<self
    end
@@ -15,15 +15,20 @@ class SoccerSchedule::Rosters
    @teams= SoccerSchedule::Teams.all
    @team= @teams[input.to_i-1]
 
-     if @team.name == "Los Angeles FC"
-       @team.roster= "No team info yet"
-     else
-          doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
-          doc.css("a.name_link").map do |player|
-            binding.pry
-              name = player.children.text
-      end
-    end
+       if @team.name == "Los Angeles FC"
+         @team.roster= "No team info yet"
+       else
+            players=[]
+            doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
+            doc.css("a.name_link").map do |player|
+              binding.pry
+              # Why duplicating name on each build?
+                name = player.children.text
+                players<<name
+                SoccerSchedule::Rosters.new(players.uniq)
+                @team.roster=players
+            end
+       end
    end
 
 
