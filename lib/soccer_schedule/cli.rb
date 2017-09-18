@@ -1,6 +1,7 @@
 class SoccerSchedule::CLI
 
   def call
+    SoccerSchedule::Teams.scrape_teams
     puts "Welcome to Soccer Schedules"
     puts " "
     puts '  o__        o__     |   |\ '
@@ -13,9 +14,6 @@ class SoccerSchedule::CLI
   end
 
   def list_teams
-
-    SoccerSchedule::Teams.scrape_teams
-    
     @teams = SoccerSchedule::Teams.all
     @teams.each.with_index(1)  do |teams,i|
        puts "#{i}. #{teams.name}"
@@ -24,20 +22,30 @@ class SoccerSchedule::CLI
 
   def start
     list_teams
-    input=nil
+    team_input=nil
     @teams = SoccerSchedule::Teams.all
-      while input != "exit"
+      while team_input != "exit"
         puts "Please select a team by number, 'list' for teams, or 'exit'"
-        input = gets.strip.downcase
-        if (1...@teams.length).include?(input.to_i)
-
-            puts "#{@teams[input.to_i - 1].name}  info:"
-            # puts "Enter 'Next Game' , 'Roster', 'List Teams' or 'Exit'"
-            # input= get.strip.downcase
-            #run method to check input and run needed method to dipslay correct info
-            SoccerSchedule::Teams.team_schedule(input)
-
-        elsif input == "list"
+        team_input = gets.strip.downcase
+        if (1...@teams.length).include?(team_input.to_i)
+            puts "More info about the #{@teams[team_input.to_i].name}"
+            SoccerSchedule::Teams.team_schedule(team_input)
+            # puts "#{@teams[team_input.to_i - 1].name}  info:"
+            # puts " 1. Next Game "
+            # puts " 2. Roster"
+            # puts " 3. List Teams "
+            # puts " 4. Exit"
+            # detail_input= gets.strip.downcase
+            #   if detail_input.to_i == 1
+            #     SoccerSchedule::Teams.team_schedule(team_input)
+            #   elsif detail_input.to_i == 2
+            #     puts "Here is the roster: COMING SOON!"
+            #   elsif detail_input.to_i == 3
+            #
+            #   elsif detail_input.to_i == 3
+            #
+            #   end
+        elsif team_input == "list"
            list_teams
         else
           puts "Not valid entry. Type list or exit"

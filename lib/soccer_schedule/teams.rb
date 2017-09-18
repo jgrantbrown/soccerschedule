@@ -1,7 +1,6 @@
 class SoccerSchedule::Teams
  attr_accessor :name, :url, :schedule_url, :next_game
 
-
 # REFACTOR FOR BETTER PRACTICE
  @@all=[]
 
