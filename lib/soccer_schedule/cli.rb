@@ -38,7 +38,8 @@ class SoccerSchedule::CLI
               when detail_input.to_i == 1
                 SoccerSchedule::Teams.team_schedule(team_input)
               when detail_input.to_i == 2
-                puts "Here is the roster: COMING SOON!"
+                puts "Here is the roster:"
+                SoccerSchedule::Rosters.players(team_input.to_i)
               when detail_input.to_i == 3
                 list_teams
               when detail_input.to_i == 4

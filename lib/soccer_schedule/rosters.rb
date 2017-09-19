@@ -11,26 +11,32 @@ class SoccerSchedule::Rosters
    end
 # add ability to scrape for team rosters to be added to team object
   def self.team_roster(input)
+     @teams= SoccerSchedule::Teams.all
+     @team= @teams[input.to_i-1]
 
-   @teams= SoccerSchedule::Teams.all
-   @team= @teams[input.to_i-1]
-
-       if @team.name == "Los Angeles FC"
-         @team.roster= "No team info yet"
-       else
-            players=[]
-            doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
-            doc.css("a.name_link").map do |player|
-              binding.pry
-              # Why duplicating name on each build?
-                name = player.children.text
-                players<<name
-                SoccerSchedule::Rosters.new(players.uniq)
-                @team.roster=players
+           if @team.name == "Los Angeles FC"
+             @team.roster= "No team info yet"
+           else
+              players=[]
+              doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
+              doc.css("a.name_link").map do |player|
+                  name = player.children.text
+                  players<<name
+                  SoccerSchedule::Rosters.new(players.uniq)
+                  @team.roster=players
+              end
             end
-       end
-   end
+    end
 
+def self.players(input)
+  SoccerSchedule::Rosters.team_roster(input)
+  @teams= SoccerSchedule::Teams.all
+  @team= @teams[input.to_i-1]
+   @team.roster.each do |player|
+
+    puts player
+  end
+end
 
 end
 
