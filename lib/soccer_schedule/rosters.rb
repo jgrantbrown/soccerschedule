@@ -5,7 +5,6 @@ class SoccerSchedule::Rosters
   @@all=[]
 
    def initialize(players=nil)
-
      @players = []
      @@all<<self
    end
@@ -19,12 +18,18 @@ class SoccerSchedule::Rosters
            else
               players=[]
               doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
-              doc.css("a.name_link").map do |player|
-                  name = player.children.text
-                  players<<name
+
+              doc.css("ul.player_list li.row div.player_info").map do |plyr_name|
+                  fullname = plyr_name.css("div.name a.name_link").text
+                  position = plyr_name.css("span.position").text
+                    # THis is grouping all names?
+                  add_player = SoccerSchedule::Players.new(fullname,position)
+                  add_player.team=@team.name
+                  players<<add_player
                   SoccerSchedule::Rosters.new(players.uniq)
+
                   @team.roster=players
-              end
+                end
             end
     end
 
@@ -34,7 +39,7 @@ def self.players(input)
   @team= @teams[input.to_i-1]
    @team.roster.each do |player|
 
-    puts player
+     puts "#{player.name}  POSITION: #{player.position}"
   end
 end
 
