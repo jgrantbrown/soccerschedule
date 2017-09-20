@@ -2,11 +2,11 @@ class SoccerSchedule::Rosters
   attr_accessor :team, :players
 
   # REFACTOR FOR BETTER PRACTICE
-  @@all=[]
+
 
    def initialize(players=nil)
      @players = []
-     @@all<<self
+
    end
 # add ability to scrape for team rosters to be added to team object
   def self.team_roster(input)
