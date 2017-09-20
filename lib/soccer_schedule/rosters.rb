@@ -35,11 +35,9 @@ def self.players(input)
   SoccerSchedule::Rosters.team_roster(input)
   @teams= SoccerSchedule::Teams.all
   @team= @teams[input.to_i-1]
-   @team.roster.each do |player|
-     puts "#{player.name}  POSITION: #{player.position}"
+   @team.roster.each.with_index(1) do |player,i|
+     puts "#{i}. #{player.name}  POSITION: #{player.position}"
   end
 end
 
 end
-
-><a href="/players/32/rj-allen"><i class="fa fa-angle-right fa_mp7"></i></a><a href="/players/32/rj-allen" class="button small_button view_more">View More</a></li>
