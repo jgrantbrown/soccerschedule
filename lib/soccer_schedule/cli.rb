@@ -24,9 +24,11 @@ class SoccerSchedule::CLI
     list_teams
     team_input=nil
     @teams = SoccerSchedule::Teams.all
+
       while team_input != "exit"
         puts "Please select a team by number, 'list' for teams, or 'exit'"
         team_input = gets.strip.downcase
+          @team = SoccerSchedule::Teams.find_team(team_input.to_i)
         if (1...@teams.length).include?(team_input.to_i)
             puts "More info about the #{@teams[team_input.to_i-1].name}"
             puts " 1. Next Game "

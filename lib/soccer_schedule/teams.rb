@@ -3,13 +3,13 @@ class SoccerSchedule::Teams
   # REFACTOR FOR BETTER PRACTICE
  @@all=[]
 
-  def initialize(name=nil, url=nil, schedule_url=nil, roster_url=nil)
+  def initialize(name = nil, url = nil, schedule_url = nil, roster_url = nil)
     @name= name
     @url = url
     @schedule_url = schedule_url
     @next_game = next_game
     @roster_url = roster_url
-    @roster= roster
+    @roster = roster
     @@all<<self
   end
 
@@ -30,7 +30,7 @@ class SoccerSchedule::Teams
            team_1 = doc.css("li.last div.match_container div.club_container img.club_logo").attr("title").value
            team_2 = doc.css("li.last div.match_container div.club_container.clubtwo img.club_logo").attr("title").value
            location = doc.css("li.last div.match_footer div.match_info").text
-           @team.next_game={ :date=>date,:time=>time,:team_1=>team_1, :team_2=>team_2,:location=>location}
+           @team.next_game = { :date=>date,:time=>time,:team_1=>team_1, :team_2=>team_2,:location=>location}
 
            @team.game_info
       end
@@ -67,7 +67,7 @@ class SoccerSchedule::Teams
 
    def game_info
      puts "**********************************************************************"
-     puts "*** #{self.next_game[:team_1]} vs #{self.next_game[:team_2]}"
+     puts "***    #{self.next_game[:team_1]} vs #{self.next_game[:team_2]}"
      puts "***    #{self.next_game[:date]} @ #{self.next_game[:time]}  "
      puts "***    Location: #{self.next_game[:location]}                  "
      puts "**********************************************************************"
