@@ -1,7 +1,7 @@
 class SoccerSchedule::CLI
 
   def call
-    SoccerSchedule::Teams.scrape_teams
+    SoccerSchedule::Scrapers.scrape_teams
     puts "Welcome to Soccer Schedules"
     puts " "
     puts '  o__        o__     |   |\ '
@@ -34,7 +34,7 @@ class SoccerSchedule::CLI
                 SoccerSchedule::Teams.team_schedule(team_input)
               when detail_input.to_i == 2
                 puts "Here is the roster:"
-                SoccerSchedule::Rosters.players(team_input.to_i)
+                SoccerSchedule::Rosters.players_list(team_input.to_i)
               when detail_input.to_i == 3
                 SoccerSchedule::Teams.list_teams
               when detail_input.to_i == 4

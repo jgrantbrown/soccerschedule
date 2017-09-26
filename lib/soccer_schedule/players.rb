@@ -4,7 +4,7 @@ class SoccerSchedule::Players
 def initialize(name, position)
   @name = name
   @position = position
-  @team =team
+  @team = team
 end
 
 end
