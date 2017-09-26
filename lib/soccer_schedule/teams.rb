@@ -73,5 +73,11 @@ class SoccerSchedule::Teams
      puts "**********************************************************************"
   end
 
+  def self.list_teams
+    self.all.each.with_index(1)  do |teams,i|
+       puts "#{i}. #{teams.name}"
+    end
+  end
+
 
 end
