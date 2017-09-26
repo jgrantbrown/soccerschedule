@@ -22,25 +22,25 @@ class SoccerSchedule::Scrapers
     end
   end
 
-  def self.scrape_roster(input)
+  def self.scrape_roster(team)
 
-    @team = SoccerSchedule::Rosters.find_team(input)
-    doc = Nokogiri::HTML(open("#{@team.roster_url}", :allow_redirections => :safe))
+
+    doc = Nokogiri::HTML(open("#{team.roster_url}", :allow_redirections => :safe))
 
     doc.css("ul.player_list li.row div.player_info").map do |plyr_name|
       fullname = plyr_name.css("div.name a.name_link").text
       position = plyr_name.css("span.position").text
       # THis is grouping all names?
       add_player = SoccerSchedule::Players.new(fullname,position)
-      add_player.team=@team.name
-      @team.roster ||= []
-      @team.roster<<add_player
-      @team.roster
+    
+      add_player.team = team.name
+      team.roster ||= []
+      team.roster<<add_player
+      team.roster
     end
   end
 
   def self.schedule_scrape(team)
-  
 
     doc = Nokogiri::HTML(open("#{team.schedule_url}", :allow_redirections => :safe))
     date = doc.css("div.match_details.upcoming").text

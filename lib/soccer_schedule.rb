@@ -8,6 +8,5 @@ require 'pry'
 require_relative "./soccer_schedule/version"
 require_relative './soccer_schedule/cli'
 require_relative './soccer_schedule/teams'
-require_relative './soccer_schedule/rosters'
 require_relative './soccer_schedule/players'
 require_relative './soccer_schedule/scrapers'

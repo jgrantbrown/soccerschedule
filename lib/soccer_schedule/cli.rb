@@ -23,7 +23,7 @@ class SoccerSchedule::CLI
         puts "Please select a team by number, 'list' for teams, or 'exit'"
         team_input = gets.strip.downcase
         @team = SoccerSchedule::Teams.find_team(team_input)
-        
+
         if (1...@teams.length).include?(team_input.to_i)
 
             puts "More info about the #{@teams[team_input.to_i-1].name}"
@@ -38,7 +38,10 @@ class SoccerSchedule::CLI
               @team.team_schedule
             when detail_input.to_i == 2
               puts "Here is the roster:"
-              SoccerSchedule::Rosters.players_list(team_input.to_i)
+
+              SoccerSchedule::Teams.get_team_roster(@team)
+
+
             when detail_input.to_i == 3
               SoccerSchedule::Teams.list_teams
             when detail_input.to_i == 4

@@ -9,7 +9,7 @@ class SoccerSchedule::Teams
     @schedule_url = schedule_url
     @next_game = next_game
     @roster_url = roster_url
-    @roster = roster
+    @roster = []
     @@all<<self
   end
 
@@ -42,6 +42,23 @@ class SoccerSchedule::Teams
        puts "#{i}. #{team.name}"
     end
   end
+
+  def self.get_team_roster(team)
+       if team.name == "Los Angeles FC"
+          team.roster= "No team info yet"
+       else
+         SoccerSchedule::Scrapers.scrape_roster(team)
+       end
+    team.roster.each.with_index(1) do |player,i|
+         puts "#{i}. #{player.name}  POSITION: #{player.position}"
+    end
+  end
+
+  def self.find_team(input)
+    SoccerSchedule::Teams.all[input.to_i-1]
+  end
+
+
 
 
 end
