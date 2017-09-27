@@ -1,11 +1,11 @@
 class SoccerSchedule::Teams
- attr_accessor :name, :url, :schedule_url, :next_game, :roster, :roster_url
+ attr_accessor :name, :schedule_url, :next_game, :roster, :roster_url
   # REFACTOR FOR BETTER PRACTICE
  @@all=[]
 
-  def initialize(name = nil, url = nil, schedule_url = nil, roster_url = nil)
+  def initialize(name = nil, schedule_url = nil, roster_url = nil)
     @name= name
-    @url = url
+
     @schedule_url = schedule_url
     @next_game = next_game
     @roster_url = roster_url
@@ -19,7 +19,7 @@ class SoccerSchedule::Teams
 
   def team_schedule
       if self.name == "Los Angeles FC"
-        self.next_game= "No schedule yet"
+        self.next_game = "No schedule yet"
       else
         SoccerSchedule::Scrapers.schedule_scrape(self)
       end
@@ -45,20 +45,15 @@ class SoccerSchedule::Teams
 
   def self.get_team_roster(team)
        if team.name == "Los Angeles FC"
-          team.roster= "No team info yet"
+          team.roster = "No team info yet"
        else
          SoccerSchedule::Scrapers.scrape_roster(team)
        end
     team.roster.each.with_index(1) do |player,i|
+         puts "------------------------------------------------------"
          puts "#{i}. #{player.name}  POSITION: #{player.position}"
+
     end
   end
-
-  def self.find_team(input)
-    SoccerSchedule::Teams.all[input.to_i-1]
-  end
-
-
-
 
 end

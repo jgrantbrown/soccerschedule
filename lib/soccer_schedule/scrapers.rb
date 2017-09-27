@@ -6,24 +6,23 @@ class SoccerSchedule::Scrapers
 
     doc.css("a.banner-club-logo").map do |team|
       name = team.attr("title")
-      url = ""
-        # hard coded descrepency in url form mls page scrape and actual web address
+
+        # hard coded descrepency in url from mls page scrape and actual web address
         if  team.attr("href")== "http://www.portlandtimbers.com/"
           url = "http://www.timbers.com/"
         elsif team.attr("href")== "http://www.realsaltlake.com/"
           url = "http://www.rsl.com/"
         else
-          url=team.attr("href")
+          url = team.attr("href")
         end
        uri = URI.parse(url)
        uri.scheme = "https"
        uri.to_s
-       SoccerSchedule::Teams.new( name,url, "#{uri.to_s}schedule","#{uri.to_s}players")
+       SoccerSchedule::Teams.new( name, "#{uri.to_s}schedule","#{uri.to_s}players")
     end
   end
 
   def self.scrape_roster(team)
-
 
     doc = Nokogiri::HTML(open("#{team.roster_url}", :allow_redirections => :safe))
 
@@ -32,7 +31,7 @@ class SoccerSchedule::Scrapers
       position = plyr_name.css("span.position").text
       # THis is grouping all names?
       add_player = SoccerSchedule::Players.new(fullname,position)
-    
+
       add_player.team = team.name
       team.roster ||= []
       team.roster<<add_player

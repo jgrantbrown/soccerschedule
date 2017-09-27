@@ -17,31 +17,27 @@ class SoccerSchedule::CLI
     SoccerSchedule::Teams.list_teams
     team_input = nil
 
-    @teams = SoccerSchedule::Teams.all
-
       while team_input != "exit"
         puts "Please select a team by number, 'list' for teams, or 'exit'"
         team_input = gets.strip.downcase
         @team = SoccerSchedule::Teams.find_team(team_input)
 
-        if (1...@teams.length).include?(team_input.to_i)
-
-            puts "More info about the #{@teams[team_input.to_i-1].name}"
+        if (1...SoccerSchedule::Teams.all.length).include?(team_input.to_i)
+            puts "***************************************"
+            puts "More info about the #{@team.name}"
             puts " 1. Next Game "
             puts " 2. Roster"
             puts " 3. List Teams "
             puts " 4. Exit"
+            puts "***************************************"
             detail_input = gets.strip.downcase
 
           case
             when detail_input.to_i == 1
               @team.team_schedule
             when detail_input.to_i == 2
-              puts "Here is the roster:"
-
+              puts "Here is the #{@team.name} roster:"
               SoccerSchedule::Teams.get_team_roster(@team)
-
-
             when detail_input.to_i == 3
               SoccerSchedule::Teams.list_teams
             when detail_input.to_i == 4
@@ -53,7 +49,10 @@ class SoccerSchedule::CLI
             puts "See you soon!"
             break
         else
-          puts "Not valid entry. Type list or exit"
+          puts "******************************************************************************"
+          puts "Not valid entry or no addtional information. "
+          puts "Type list or exit"
+          puts "******************************************************************************"
         end
       end
   end
