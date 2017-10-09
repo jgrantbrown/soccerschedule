@@ -2,6 +2,7 @@ class SoccerSchedule::CLI
 
   def call
     SoccerSchedule::Scrapers.scrape_teams
+    puts "_______________________________________"
     puts "Welcome to Soccer Schedules"
     puts " "
     puts '  o__        o__     |   |\ '
@@ -9,6 +10,7 @@ class SoccerSchedule::CLI
     puts ' / > o        <\     |   |XX\ '
     puts ''
     puts "Which team schedule do you want?"
+    puts "_______________________________________"
       start
       goodbye
   end
@@ -18,18 +20,21 @@ class SoccerSchedule::CLI
     team_input = nil
 
       while team_input != "exit"
+        puts "____________________________________________________________"
         puts "Please select a team by number, 'list' for teams, or 'exit'"
+        puts "____________________________________________________________"
         team_input = gets.strip.downcase
         @team = SoccerSchedule::Teams.find_team(team_input)
 
-        if (1...SoccerSchedule::Teams.all.length).include?(team_input.to_i)
-            puts "***************************************"
-            puts "More info about the #{@team.name}"
-            puts " 1. Next Game "
-            puts " 2. Roster"
-            puts " 3. List Teams "
-            puts " 4. Exit"
-            puts "***************************************"
+        if (1..SoccerSchedule::Teams.all.length).include?(team_input.to_i)
+            puts "_______________________________________"
+            puts "| More info about the #{@team.name}"
+            puts "|______________________________________"
+            puts "| 1. Next Game "
+            puts "| 2. Roster"
+            puts "| 3. List Teams "
+            puts "| 4. Exit"
+            puts "|______________________________________"
             detail_input = gets.strip.downcase
 
           case
@@ -37,7 +42,7 @@ class SoccerSchedule::CLI
               @team.team_schedule
             when detail_input.to_i == 2
               puts "Here is the #{@team.name} roster:"
-              SoccerSchedule::Teams.get_team_roster(@team)
+              @team.get_team_roster
             when detail_input.to_i == 3
               SoccerSchedule::Teams.list_teams
             when detail_input.to_i == 4

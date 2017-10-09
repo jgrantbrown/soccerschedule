@@ -5,7 +5,6 @@ class SoccerSchedule::Teams
 
   def initialize(name = nil, schedule_url = nil, roster_url = nil)
     @name= name
-
     @schedule_url = schedule_url
     @next_game = next_game
     @roster_url = roster_url
@@ -19,7 +18,8 @@ class SoccerSchedule::Teams
 
   def team_schedule
       if self.name == "Los Angeles FC"
-        self.next_game = "No schedule yet"
+        # self.next_game = "No schedule yet"
+        puts "No schedule yet"
       else
         SoccerSchedule::Scrapers.schedule_scrape(self)
       end
@@ -43,17 +43,19 @@ class SoccerSchedule::Teams
     end
   end
 
-  def self.get_team_roster(team)
-       if team.name == "Los Angeles FC"
-          team.roster = "No team info yet"
+  def get_team_roster
+    if self.name == "Los Angeles FC"
+
+          puts "No team info yet"
        else
-         SoccerSchedule::Scrapers.scrape_roster(team)
+         SoccerSchedule::Scrapers.scrape_roster(self)
        end
-    team.roster.each.with_index(1) do |player,i|
+    self.roster.each.with_index(1) do |player,i|
          puts "------------------------------------------------------"
          puts "#{i}. #{player.name}  POSITION: #{player.position}"
 
     end
+
   end
 
 end

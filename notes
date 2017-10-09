@@ -4,7 +4,7 @@ show list of mls teams
 after chooosing a team from list have option to see next game or rosters
 
 
-BUild out objects for roster and next_game
+BUild out objects for team and players
 
 
 Logic notes for code:
