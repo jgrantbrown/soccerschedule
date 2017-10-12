@@ -16,17 +16,18 @@ class SoccerSchedule::CLI
   end
 
   def start
-    SoccerSchedule::Teams.list_teams
+    list_teams
     team_input = nil
 
       while team_input != "exit"
         puts "____________________________________________________________"
-        puts "Please select a team by number, 'list' for teams, or 'exit'"
+        puts "Please select a team by number, 'list' for teams, players, position, or 'exit'"
         puts "____________________________________________________________"
         team_input = gets.strip.downcase
-        @team = SoccerSchedule::Teams.find_team(team_input)
 
-        if (1..SoccerSchedule::Teams.all.length).include?(team_input.to_i)
+        # if (1..SoccerSchedule::Teams.all.length).include?(team_input.to_i)
+        if team_input.to_i.between?(1, SoccerSchedule::Teams.all.length)
+            @team = SoccerSchedule::Teams.find_team(team_input)
             puts "_______________________________________"
             puts "| More info about the #{@team.name}"
             puts "|______________________________________"
@@ -48,6 +49,11 @@ class SoccerSchedule::CLI
             when detail_input.to_i == 4
               break
           end
+        elsif team_input == "players"
+          list_players
+        elsif team_input == "position"
+          list_players_by_position
+
         elsif team_input == "list"
            SoccerSchedule::Teams.list_teams
         elsif team_input == "exit"
@@ -62,7 +68,36 @@ class SoccerSchedule::CLI
       end
   end
 
+  def list_teams
+    SoccerSchedule::Teams.all.each.with_index(1)  do |team,i|
+       puts "#{i}. #{team.name}"
+    end
+  end
+
+  def list_players
+    SoccerSchedule::Players.all.each.with_index(1)  do |player,i|
+       puts "#{i}. #{player.name}"
+    end
+  end
+
+  def list_players_by_position
+    puts "What postion would you like to search players?"
+    input = gets.strip
+
+    players = SoccerSchedule::Players.find_by_position(input)
+    
+    puts "Here is a list of players that play #{input}:"
+    players.each.with_index(1)  do |player,i|
+      puts "#{i}. #{player.name}"
+    end
+
+  end
+
+
+
   def goodbye
     puts "Have fun watching the game!"
   end
+
+
 end

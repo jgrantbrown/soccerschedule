@@ -5,6 +5,7 @@ class SoccerSchedule::Scrapers
     doc = Nokogiri::HTML(open("https://www.mlssoccer.com/"))
 
     doc.css("a.banner-club-logo").map do |team|
+    
       name = team.attr("title")
 
         # hard coded descrepency in url from mls page scrape and actual web address

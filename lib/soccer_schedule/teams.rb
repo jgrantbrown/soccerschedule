@@ -37,12 +37,6 @@ class SoccerSchedule::Teams
      puts "**********************************************************************"
   end
 
-  def self.list_teams
-    self.all.each.with_index(1)  do |team,i|
-       puts "#{i}. #{team.name}"
-    end
-  end
-
   def get_team_roster
     if self.name == "Los Angeles FC"
 
@@ -53,8 +47,7 @@ class SoccerSchedule::Teams
     self.roster.each.with_index(1) do |player,i|
          puts "------------------------------------------------------"
          puts "#{i}. #{player.name}  POSITION: #{player.position}"
-
-    end
+       end
 
   end
 
